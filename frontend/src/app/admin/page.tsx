@@ -1,16 +1,46 @@
-export default function AdminPlaceholder() {
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
+import AdminDashboard from "../../components/AdminDashboard";
+import AdminLoginForm from "../../components/AdminLoginForm";
+import SiteHeader from "../../components/SiteHeader";
+import { getAdminToken } from "../../lib/auth";
+
+export default function AdminPage() {
+  const [authed, setAuthed] = useState(false);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    setAuthed(Boolean(getAdminToken()));
+    setReady(true);
+  }, []);
+
+  const onLogout = useCallback(() => setAuthed(false), []);
+
   return (
-    <main className="page-shell mx-auto flex w-full max-w-lg flex-col justify-center px-6 py-16">
-      <h1 className="font-[family-name:var(--font-display)] text-3xl text-[var(--ink)]">
-        Admin dashboard
-      </h1>
-      <p className="mt-3 text-[var(--muted)] leading-relaxed">
-        Login and ticket filters land in Step 7. Backend auth is already live at{" "}
-        <code className="rounded bg-[var(--surface-2)] px-1.5 py-0.5 text-sm">
-          POST /api/auth/login
-        </code>
-        .
-      </p>
-    </main>
+    <div className="page-shell relative overflow-hidden">
+      <div
+        className="orb"
+        style={{
+          width: 200,
+          height: 200,
+          top: "12%",
+          right: "6%",
+          background: "rgb(45 212 191 / 0.18)",
+        }}
+      />
+
+      <SiteHeader actionHref="/" actionLabel="Customer intake" />
+
+      {!ready ? (
+        <p className="px-6 text-[var(--muted)]">Loading workspace…</p>
+      ) : authed ? (
+        <AdminDashboard onLogout={onLogout} />
+      ) : (
+        <div className="flex flex-1 items-center justify-center px-6 pb-20 pt-4">
+          <AdminLoginForm onSuccess={() => setAuthed(true)} />
+        </div>
+      )}
+    </div>
   );
 }
