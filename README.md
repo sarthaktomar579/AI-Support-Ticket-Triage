@@ -1,6 +1,6 @@
-# AI Support Ticket Triage
+# Aitri — AI Support Ticket Triage
 
-Users submit support tickets; Gemini assigns priority, category, and a suggested reply. Admins review results on a JWT-protected dashboard.
+**Aitri** is the product UI for this Skygnosis take-home: users submit support tickets; Gemini assigns priority, category, and a suggested reply. Admins review results on a JWT-protected dashboard. If the model is unavailable, customers still get a saved ticket with a mock reply and safe defaults.
 
 ```
 frontend/   Next.js + TypeScript + Tailwind
@@ -30,7 +30,7 @@ npm install
 npm run dev
 ```
 
-`http://localhost:3000` — submit at `/`, admin at `/admin`
+`http://localhost:3000` — customer intake at `/` (Aitri), operations console at `/admin`
 
 ### Local admin (seeded)
 
