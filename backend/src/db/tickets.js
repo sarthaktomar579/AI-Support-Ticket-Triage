@@ -49,9 +49,10 @@ async function findTicketById(id) {
 }
 
 async function findAdminByEmail(email) {
-  const { rows } = await pool.query(`SELECT * FROM admins WHERE email = $1`, [
-    email,
-  ]);
+  const { rows } = await pool.query(
+    `SELECT * FROM admins WHERE LOWER(email) = LOWER($1)`,
+    [email]
+  );
   return rows[0] || null;
 }
 

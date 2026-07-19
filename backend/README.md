@@ -16,25 +16,37 @@ API listens on [http://localhost:4000](http://localhost:4000).
 
 Health check: `GET /api/health`
 
-### Ticket API (Step 3)
+### Auth API
 
 | Method | Path | Description |
 |--------|------|-------------|
-| `POST` | `/api/tickets` | Create a ticket (`name`, `email`, `message`) |
-| `GET` | `/api/tickets` | List tickets (newest first). Optional query: `priority`, `category` |
-| `GET` | `/api/tickets/:id` | Get one ticket |
+| `POST` | `/api/auth/login` | Admin login → `{ token, admin }` |
+
+Default admin (from migrate): `admin@skygnosis.demo` / `Admin123!`
+
+### Ticket API
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| `POST` | `/api/tickets` | Public | Create a ticket (`name`, `email`, `message`) + Gemini triage |
+| `GET` | `/api/tickets` | Bearer JWT | List tickets (newest first). Query: `priority`, `category` |
+| `GET` | `/api/tickets/:id` | Bearer JWT | Get one ticket |
 
 Example:
 
 ```bash
+# Submit ticket (public)
 curl -X POST http://localhost:4000/api/tickets -H "Content-Type: application/json" -d "{\"name\":\"Ada\",\"email\":\"ada@example.com\",\"message\":\"Billing charge looks wrong\"}"
-curl "http://localhost:4000/api/tickets"
-curl "http://localhost:4000/api/tickets?priority=High&category=Billing"
+
+# Admin login
+curl -X POST http://localhost:4000/api/auth/login -H "Content-Type: application/json" -d "{\"email\":\"admin@skygnosis.demo\",\"password\":\"Admin123!\"}"
+
+# List tickets (replace TOKEN)
+curl "http://localhost:4000/api/tickets" -H "Authorization: Bearer TOKEN"
+curl "http://localhost:4000/api/tickets?priority=High&category=Billing" -H "Authorization: Bearer TOKEN"
 ```
 
 AI triage fields are filled by Gemini on create. If the model errors or times out, the ticket is still saved with safe defaults (`Medium` / `Other` / generic reply) and `aiStatus: "failed"`.
-
-List endpoints will be admin-protected in Step 5.
 
 ### Gemini setup
 
