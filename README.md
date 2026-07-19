@@ -27,8 +27,9 @@ Detailed run instructions will be finalized in a later step. For now:
 
 ```bash
 cd backend
-cp .env.example .env   # fill in DATABASE_URL and GEMINI_API_KEY
+cp .env.example .env   # fill in Neon DATABASE_URL and GEMINI_API_KEY
 npm install
+npm run db:migrate
 npm run dev
 ```
 
