@@ -13,7 +13,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Helix — Support intake",
+  title: "Aitri — Support intake",
   description: "Submit support requests and review triaged tickets in the operations console",
 };
 

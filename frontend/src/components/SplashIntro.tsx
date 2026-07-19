@@ -53,7 +53,7 @@ export default function SplashIntro({ children }: Props) {
       </div>
 
       <div className="splash-center">
-        <p className="splash-brand">Helix</p>
+        <p className="splash-brand">Aitri</p>
         <p className="splash-line">Intelligent triage.</p>
       </div>
     </div>

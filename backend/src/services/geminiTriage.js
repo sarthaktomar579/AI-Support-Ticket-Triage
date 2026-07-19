@@ -1,14 +1,14 @@
 const PRIORITIES = ["Low", "Medium", "High"];
 const CATEGORIES = ["Billing", "Bug", "Feature Request", "Other"];
 
-const DEFAULT_MODEL = "gemini-2.0-flash";
+const DEFAULT_MODEL = "gemini-2.5-flash";
 const DEFAULT_TIMEOUT_MS = 15000;
 
 const FALLBACK = {
   priority: "Medium",
   category: "Other",
   suggestedReply:
-    "Thanks for contacting support. We've received your ticket and a teammate will follow up shortly.",
+    "Mock reply: Thanks for contacting support. We've received your ticket and a teammate will follow up shortly.",
 };
 
 function buildPrompt({ name, email, message }) {

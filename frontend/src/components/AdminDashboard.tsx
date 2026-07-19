@@ -188,7 +188,7 @@ export default function AdminDashboard({ onLogout }: Props) {
 
               <div className="mt-4 rounded-xl border border-[var(--line)] bg-[var(--surface-solid)] px-4 py-3">
                 <p className="text-[0.7rem] font-semibold tracking-[0.08em] text-[var(--muted)] uppercase">
-                  Suggested reply
+                  {ticket.aiStatus === "failed" ? "Mock reply" : "Suggested reply"}
                 </p>
                 <p className="mt-1.5 text-sm leading-relaxed text-[var(--ink)]">
                   {ticket.suggestedReply || "—"}

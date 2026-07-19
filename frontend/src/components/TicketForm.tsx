@@ -53,7 +53,7 @@ export default function TicketForm() {
           </h3>
           <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
             {triage.status === "failed"
-              ? "Automated triage was unavailable, so safe defaults were applied. Your team can still follow up with the draft below."
+              ? "Live triage was unavailable, so a mock reply and safe defaults were used. Your team can still follow up from here."
               : "Priority and category are ready for your operations team, along with a draft reply."}
           </p>
         </div>
@@ -83,7 +83,7 @@ export default function TicketForm() {
           </div>
           <div className="sm:col-span-2 rounded-xl border border-[var(--line)] bg-[var(--surface-solid)] px-4 py-3">
             <dt className="text-[0.7rem] font-semibold tracking-[0.08em] text-[var(--muted)] uppercase">
-              Suggested reply
+              {triage.status === "failed" ? "Mock reply" : "Suggested reply"}
             </dt>
             <dd className="mt-2 text-sm leading-relaxed text-[var(--ink)]">
               {ticket.suggestedReply || "—"}
@@ -91,9 +91,10 @@ export default function TicketForm() {
           </div>
         </dl>
 
-        {triage.warning ? (
-          <p className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
-            {triage.warning}
+        {triage.status === "failed" ? (
+          <p className="rounded-xl border border-amber-200/80 bg-amber-50/90 px-3 py-2 text-sm text-amber-950">
+            {triage.warning ||
+              "Automated triage used a mock reply while the model was unavailable."}
           </p>
         ) : null}
 

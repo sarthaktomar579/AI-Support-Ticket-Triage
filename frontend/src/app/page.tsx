@@ -37,13 +37,13 @@ export default function Home() {
               Customer operations
             </p>
             <h1 className="font-[family-name:var(--font-display)] text-[2.65rem] leading-[1.08] tracking-tight text-[var(--ink)] sm:text-5xl lg:text-[3.35rem]">
-              Helix
+              Aitri
             </h1>
             <p className="max-w-md text-lg font-medium leading-snug text-[var(--ink)]">
               Every request classified before it reaches your team.
             </p>
             <p className="max-w-md text-[var(--muted)] leading-relaxed">
-              Share your details and a clear description of the issue. Helix
+              Share your details and a clear description of the issue. Aitri
               assigns priority and category, then drafts a concise reply your
               agents can send.
             </p>

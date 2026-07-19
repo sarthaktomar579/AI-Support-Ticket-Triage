@@ -45,7 +45,9 @@ async function create(req, res, next) {
       ticket: toTicketResponse(ticket),
       triage: {
         status: triage.ok ? "success" : "failed",
-        ...(triage.ok ? {} : { warning: triage.error }),
+        ...(triage.ok
+          ? {}
+          : { warning: "Automated triage used a mock reply." }),
       },
     });
   } catch (err) {
