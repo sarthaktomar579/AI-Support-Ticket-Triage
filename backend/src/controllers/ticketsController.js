@@ -4,6 +4,7 @@ const {
   findTicketById,
 } = require("../db/tickets");
 const { toTicketResponse } = require("../utils/serialize");
+const { triageTicket } = require("../services/geminiTriage");
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PRIORITIES = new Set(["Low", "Medium", "High"]);
@@ -27,15 +28,26 @@ async function create(req, res, next) {
       return res.status(400).json({ error: "email is invalid" });
     }
 
-    // AI triage is wired in Step 4 — store the ticket first.
+    const triage = await triageTicket({ name, email, message });
+
     const ticket = await createTicket({
       name,
       email,
       message,
-      aiStatus: "pending",
+      priority: triage.priority,
+      category: triage.category,
+      suggestedReply: triage.suggestedReply,
+      aiStatus: triage.ok ? "success" : "failed",
+      aiError: triage.ok ? null : triage.error,
     });
 
-    return res.status(201).json({ ticket: toTicketResponse(ticket) });
+    return res.status(201).json({
+      ticket: toTicketResponse(ticket),
+      triage: {
+        status: triage.ok ? "success" : "failed",
+        ...(triage.ok ? {} : { warning: triage.error }),
+      },
+    });
   } catch (err) {
     return next(err);
   }

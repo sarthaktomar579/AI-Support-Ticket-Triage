@@ -32,7 +32,15 @@ curl "http://localhost:4000/api/tickets"
 curl "http://localhost:4000/api/tickets?priority=High&category=Billing"
 ```
 
-AI triage fields are stored as `pending` until Step 4. List endpoints will be admin-protected in Step 5.
+AI triage fields are filled by Gemini on create. If the model errors or times out, the ticket is still saved with safe defaults (`Medium` / `Other` / generic reply) and `aiStatus: "failed"`.
+
+List endpoints will be admin-protected in Step 5.
+
+### Gemini setup
+
+1. Create a free API key at [Google AI Studio](https://aistudio.google.com/apikey)
+2. Set `GEMINI_API_KEY` in `.env`
+3. Optional: `GEMINI_MODEL` (default `gemini-2.0-flash`), `GEMINI_TIMEOUT_MS` (default `15000`)
 
 ### Neon setup
 
