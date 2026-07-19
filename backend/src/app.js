@@ -1,5 +1,8 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
+const ticketRoutes = require("./routes/tickets");
 
 const app = express();
 
@@ -14,9 +17,10 @@ app.get("/api/health", (_req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
-// Routes will be mounted in later steps:
+app.use("/api/tickets", ticketRoutes);
+
+// Auth routes will be mounted in Step 5:
 // app.use("/api/auth", authRoutes);
-// app.use("/api/tickets", ticketRoutes);
 
 app.use((err, _req, res, _next) => {
   console.error(err);
