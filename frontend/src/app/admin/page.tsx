@@ -26,7 +26,7 @@ export default function AdminPage() {
           height: 200,
           top: "12%",
           right: "6%",
-          background: "rgb(45 212 191 / 0.18)",
+          background: "rgb(255 200 120 / 0.3)",
         }}
       />
 

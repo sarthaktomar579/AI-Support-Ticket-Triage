@@ -1,4 +1,4 @@
--- AI Support Ticket Triage schema (PostgreSQL / Neon)
+-- Ticket triage schema
 
 CREATE TABLE IF NOT EXISTS admins (
   id SERIAL PRIMARY KEY,

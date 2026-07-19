@@ -8,9 +8,9 @@ const PRIORITIES = ["", "High", "Medium", "Low"] as const;
 const CATEGORIES = ["", "Billing", "Bug", "Feature Request", "Other"] as const;
 
 const priorityStyles: Record<string, string> = {
-  High: "bg-rose-100 text-rose-800",
+  High: "bg-rose-100 text-rose-900",
   Medium: "bg-amber-100 text-amber-950",
-  Low: "bg-teal-100 text-teal-900",
+  Low: "bg-orange-100 text-orange-950",
 };
 
 type Props = {
@@ -165,16 +165,16 @@ export default function AdminDashboard({ onLogout }: Props) {
                   >
                     {ticket.priority || "Unassigned"}
                   </span>
-                  <span className="meta-chip bg-[var(--accent-soft)] text-teal-900">
+                  <span className="meta-chip bg-[var(--accent-soft)] text-[var(--accent-deep)]">
                     {ticket.category || "Uncategorized"}
                   </span>
                   <span
                     className={`meta-chip ${
                       ticket.aiStatus === "success"
-                        ? "bg-teal-50 text-teal-900"
+                        ? "bg-emerald-50 text-emerald-900"
                         : ticket.aiStatus === "failed"
                           ? "bg-amber-50 text-amber-950"
-                          : "bg-zinc-100 text-zinc-700"
+                          : "bg-stone-100 text-stone-700"
                     }`}
                   >
                     Triage {ticket.aiStatus}

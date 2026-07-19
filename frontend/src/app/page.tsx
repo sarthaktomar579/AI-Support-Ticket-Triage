@@ -1,39 +1,67 @@
-import Link from "next/link";
+import SiteHeader from "../components/SiteHeader";
+import SplashIntro from "../components/SplashIntro";
 import TicketForm from "../components/TicketForm";
 
 export default function Home() {
   return (
-    <div className="page-shell">
-      <header className="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-5">
-        <p className="font-[family-name:var(--font-display)] text-lg tracking-tight text-[var(--ink)]">
-          Ticket Triage
-        </p>
-        <Link href="/admin" className="text-sm text-[var(--muted)] hover:text-[var(--ink)] transition-colors">
-          Admin
-        </Link>
-      </header>
+    <SplashIntro>
+      <div className="page-shell relative overflow-hidden">
+        <div
+          className="orb"
+          style={{
+            width: 220,
+            height: 220,
+            top: "18%",
+            left: "-4%",
+            background: "rgb(255 200 120 / 0.35)",
+            animationDelay: "0s",
+          }}
+        />
+        <div
+          className="orb"
+          style={{
+            width: 160,
+            height: 160,
+            top: "58%",
+            right: "-2%",
+            background: "rgb(255 160 80 / 0.28)",
+            animationDelay: "1.5s",
+          }}
+        />
 
-      <main className="mx-auto grid w-full max-w-5xl flex-1 gap-10 px-6 pb-16 pt-4 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-        <section className="space-y-4 lg:pt-6">
-          <p className="text-sm font-medium tracking-wide text-[var(--accent)] uppercase">
-            Support desk
-          </p>
-          <h1 className="font-[family-name:var(--font-display)] text-4xl leading-tight tracking-tight text-[var(--ink)] sm:text-5xl">
-            Tell us what went wrong. AI routes it from here.
-          </h1>
-          <p className="max-w-md text-[var(--muted)] leading-relaxed">
-            Submit a ticket with your name, email, and message. We score
-            priority, pick a category, and draft a one-line reply for the team.
-          </p>
-        </section>
+        <SiteHeader actionHref="/admin" actionLabel="Operations console" />
 
-        <section className="form-panel">
-          <h2 className="mb-6 font-[family-name:var(--font-display)] text-xl text-[var(--ink)]">
-            New ticket
-          </h2>
-          <TicketForm />
-        </section>
-      </main>
-    </div>
+        <main className="relative mx-auto grid w-full max-w-6xl flex-1 gap-12 px-6 pb-20 pt-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <section className="hero-copy space-y-5 lg:pr-6">
+            <p className="text-sm font-semibold tracking-[0.14em] text-[var(--accent-deep)] uppercase">
+              Customer operations
+            </p>
+            <h1 className="font-[family-name:var(--font-display)] text-[2.65rem] leading-[1.08] tracking-tight text-[var(--ink)] sm:text-5xl lg:text-[3.35rem]">
+              Helix
+            </h1>
+            <p className="max-w-md text-lg font-medium leading-snug text-[var(--ink)]">
+              Every request classified before it reaches your team.
+            </p>
+            <p className="max-w-md text-[var(--muted)] leading-relaxed">
+              Share your details and a clear description of the issue. Helix
+              assigns priority and category, then drafts a concise reply your
+              agents can send.
+            </p>
+          </section>
+
+          <section className="form-panel">
+            <div className="mb-6 border-b border-[var(--line)] pb-4">
+              <h2 className="font-[family-name:var(--font-display)] text-2xl tracking-tight text-[var(--ink)]">
+                Open a request
+              </h2>
+              <p className="mt-1 text-sm text-[var(--muted)]">
+                Typical response starts with automated triage in seconds.
+              </p>
+            </div>
+            <TicketForm />
+          </section>
+        </main>
+      </div>
+    </SplashIntro>
   );
 }

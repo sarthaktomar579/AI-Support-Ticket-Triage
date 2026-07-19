@@ -4,9 +4,9 @@ import { FormEvent, useState } from "react";
 import { createTicket, type CreateTicketResponse } from "../lib/api";
 
 const priorityStyles: Record<string, string> = {
-  High: "bg-rose-100 text-rose-800",
-  Medium: "bg-amber-100 text-amber-900",
-  Low: "bg-emerald-100 text-emerald-800",
+  High: "bg-rose-100 text-rose-900",
+  Medium: "bg-amber-100 text-amber-950",
+  Low: "bg-orange-100 text-orange-950",
 };
 
 export default function TicketForm() {
@@ -26,7 +26,7 @@ export default function TicketForm() {
       const data = await createTicket({ name, email, message });
       setResult(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong");
+      setError(err instanceof Error ? err.message : "Unable to submit request");
     } finally {
       setLoading(false);
     }
@@ -43,31 +43,29 @@ export default function TicketForm() {
   if (result) {
     const { ticket, triage } = result;
     return (
-      <div className="confirm-panel space-y-6">
+      <div className="space-y-6">
         <div>
-          <p className="text-sm font-medium tracking-wide text-[var(--accent)] uppercase">
-            Ticket #{ticket.id}
+          <p className="text-xs font-semibold tracking-[0.12em] text-[var(--accent-deep)] uppercase">
+            Request #{ticket.id}
           </p>
-          <h2 className="mt-1 font-[family-name:var(--font-display)] text-2xl text-[var(--ink)]">
-            We received your request
-          </h2>
-          <p className="mt-2 text-[var(--muted)]">
-            Our AI triage ran automatically
+          <h3 className="mt-1 font-[family-name:var(--font-display)] text-2xl tracking-tight text-[var(--ink)]">
+            Received and triaged
+          </h3>
+          <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
             {triage.status === "failed"
-              ? " with a fallback (AI was unavailable)."
-              : "."}{" "}
-            An agent can follow up using the suggested reply below.
+              ? "Automated triage was unavailable, so safe defaults were applied. Your team can still follow up with the draft below."
+              : "Priority and category are ready for your operations team, along with a draft reply."}
           </p>
         </div>
 
         <dl className="grid gap-4 sm:grid-cols-2">
-          <div>
-            <dt className="text-xs tracking-wide text-[var(--muted)] uppercase">
+          <div className="rounded-xl bg-[var(--surface-2)] px-4 py-3">
+            <dt className="text-[0.7rem] font-semibold tracking-[0.08em] text-[var(--muted)] uppercase">
               Priority
             </dt>
-            <dd className="mt-1">
+            <dd className="mt-2">
               <span
-                className={`inline-block rounded-md px-2.5 py-1 text-sm font-medium ${
+                className={`meta-chip ${
                   priorityStyles[ticket.priority || ""] || "bg-zinc-100 text-zinc-700"
                 }`}
               >
@@ -75,36 +73,32 @@ export default function TicketForm() {
               </span>
             </dd>
           </div>
-          <div>
-            <dt className="text-xs tracking-wide text-[var(--muted)] uppercase">
+          <div className="rounded-xl bg-[var(--surface-2)] px-4 py-3">
+            <dt className="text-[0.7rem] font-semibold tracking-[0.08em] text-[var(--muted)] uppercase">
               Category
             </dt>
-            <dd className="mt-1 text-[var(--ink)] font-medium">
+            <dd className="mt-2 text-base font-semibold text-[var(--ink)]">
               {ticket.category || "—"}
             </dd>
           </div>
-          <div className="sm:col-span-2">
-            <dt className="text-xs tracking-wide text-[var(--muted)] uppercase">
+          <div className="sm:col-span-2 rounded-xl border border-[var(--line)] bg-[var(--surface-solid)] px-4 py-3">
+            <dt className="text-[0.7rem] font-semibold tracking-[0.08em] text-[var(--muted)] uppercase">
               Suggested reply
             </dt>
-            <dd className="mt-2 rounded-lg border border-[var(--line)] bg-[var(--surface-2)] px-4 py-3 text-[var(--ink)] leading-relaxed">
+            <dd className="mt-2 text-sm leading-relaxed text-[var(--ink)]">
               {ticket.suggestedReply || "—"}
             </dd>
           </div>
         </dl>
 
         {triage.warning ? (
-          <p className="text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+          <p className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
             {triage.warning}
           </p>
         ) : null}
 
-        <button
-          type="button"
-          onClick={reset}
-          className="btn-secondary"
-        >
-          Submit another ticket
+        <button type="button" onClick={reset} className="btn-secondary w-full sm:w-auto">
+          Submit another request
         </button>
       </div>
     );
@@ -114,7 +108,7 @@ export default function TicketForm() {
     <form onSubmit={onSubmit} className="space-y-5">
       <div>
         <label htmlFor="name" className="field-label">
-          Name
+          Full name
         </label>
         <input
           id="name"
@@ -123,14 +117,14 @@ export default function TicketForm() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="field-input"
-          placeholder="Jane Doe"
+          placeholder="Priya Sharma"
           autoComplete="name"
         />
       </div>
 
       <div>
         <label htmlFor="email" className="field-label">
-          Email
+          Work email
         </label>
         <input
           id="email"
@@ -140,14 +134,14 @@ export default function TicketForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="field-input"
-          placeholder="jane@company.com"
+          placeholder="priya@company.com"
           autoComplete="email"
         />
       </div>
 
       <div>
         <label htmlFor="message" className="field-label">
-          Message
+          Issue description
         </label>
         <textarea
           id="message"
@@ -156,19 +150,19 @@ export default function TicketForm() {
           rows={5}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          className="field-input resize-y min-h-32"
-          placeholder="Describe the issue — what happened, and what you expected..."
+          className="field-input min-h-32 resize-y"
+          placeholder="What happened, where, and what you expected instead…"
         />
       </div>
 
       {error ? (
-        <p className="text-sm text-rose-700 bg-rose-50 border border-rose-200 rounded-lg px-3 py-2">
+        <p className="rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700">
           {error}
         </p>
       ) : null}
 
       <button type="submit" disabled={loading} className="btn-primary">
-        {loading ? "Triaging with AI…" : "Submit ticket"}
+        {loading ? "Running triage…" : "Submit request"}
       </button>
     </form>
   );

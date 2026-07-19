@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #0c1f2c;
-  --muted: #5a6f7c;
-  --accent: #0d9488;
-  --accent-deep: #0f766e;
-  --accent-soft: #ccfbf1;
-  --line: #c9d8e0;
-  --surface: rgba(255, 255, 255, 0.82);
-  --surface-solid: #ffffff;
-  --surface-2: #f0f7f8;
-  --background: #dce8ee;
+  --ink: #3b2416;
+  --muted: #8a5a3c;
+  --accent: #c45a1a;
+  --accent-deep: #9a3f0f;
+  --accent-soft: #f6d7b8;
+  --line: #e4b48a;
+  --surface: rgba(255, 248, 240, 0.78);
+  --surface-solid: #fff8f0;
+  --surface-2: #f8e6d2;
+  --background: #f07a28;
   --foreground: var(--ink);
-  --shadow: 0 24px 60px -32px rgb(12 31 44 / 0.4);
+  --shadow: 0 24px 60px -28px rgb(90 40 10 / 0.45);
 }
 
 @theme inline {
@@ -25,27 +25,32 @@ body {
   color: var(--ink);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   min-height: 100vh;
-  background-color: var(--background);
+  background-color: #f07a28;
   background-image:
-    radial-gradient(ellipse 900px 520px at 8% -5%, #9fd5cf 0%, transparent 58%),
-    radial-gradient(ellipse 760px 480px at 96% 4%, #a8c6e0 0%, transparent 52%),
-    radial-gradient(ellipse 600px 400px at 50% 110%, #b8d4c8 0%, transparent 55%),
-    linear-gradient(165deg, #e8f1f4 0%, #d5e4ec 48%, #e2ebe8 100%);
+    radial-gradient(
+      circle at 50% 45%,
+      transparent 0%,
+      transparent 28%,
+      rgb(90 40 10 / 0.06) 29%,
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 50% 45%,
+      transparent 0%,
+      transparent 46%,
+      rgb(90 40 10 / 0.05) 47%,
+      transparent 48%
+    ),
+    radial-gradient(
+      circle at 50% 45%,
+      transparent 0%,
+      transparent 64%,
+      rgb(90 40 10 / 0.045) 65%,
+      transparent 66%
+    ),
+    radial-gradient(ellipse 920px 640px at 50% 42%, #ffb56f 0%, transparent 60%),
+    linear-gradient(160deg, #ff9f4d 0%, #f07a28 45%, #e45f1c 100%);
   background-attachment: fixed;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.35;
-  background-image:
-    linear-gradient(rgb(12 31 44 / 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(12 31 44 / 0.03) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
-  z-index: 0;
 }
 
 .page-shell {
@@ -80,13 +85,13 @@ body::before {
   width: 2.15rem;
   height: 2.15rem;
   border-radius: 0.7rem;
-  background: linear-gradient(145deg, #14b8a6 0%, #0f766e 100%);
-  color: white;
+  background: linear-gradient(145deg, #ff8f3d 0%, #b44a12 100%);
+  color: #fff8f0;
   font-family: var(--font-display), serif;
   font-size: 1.05rem;
   font-weight: 600;
   letter-spacing: -0.03em;
-  box-shadow: 0 10px 20px -12px rgb(13 148 136 / 0.9);
+  box-shadow: 0 10px 20px -12px rgb(120 40 0 / 0.85);
 }
 
 .brand-name {
@@ -101,7 +106,7 @@ body::before {
   display: block;
   margin-top: 0.2rem;
   font-size: 0.68rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
@@ -109,24 +114,24 @@ body::before {
 
 .nav-link {
   font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--muted);
+  font-weight: 600;
+  color: var(--ink);
   text-decoration: none;
-  padding: 0.45rem 0.85rem;
+  padding: 0.45rem 0.95rem;
   border-radius: 999px;
-  border: 1px solid transparent;
-  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  border: 1px solid rgb(255 255 255 / 0.35);
+  background: rgb(255 248 240 / 0.35);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .nav-link:hover {
-  color: var(--ink);
-  background: rgb(255 255 255 / 0.55);
-  border-color: var(--line);
+  background: rgb(255 248 240 / 0.7);
+  border-color: rgb(255 255 255 / 0.55);
 }
 
 .form-panel,
 .confirm-panel {
-  border: 1px solid rgb(255 255 255 / 0.7);
+  border: 1px solid rgb(255 255 255 / 0.45);
   background: var(--surface);
   backdrop-filter: blur(16px);
   border-radius: 1.25rem;
@@ -167,12 +172,12 @@ body::before {
   padding: 0.8rem 0.95rem;
   color: var(--ink);
   outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .field-input:focus {
-  border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 16%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 .btn-primary,
@@ -190,14 +195,14 @@ body::before {
 
 .btn-primary {
   width: 100%;
-  background: linear-gradient(180deg, #14b8a6 0%, var(--accent-deep) 100%);
-  color: white;
-  box-shadow: 0 12px 24px -14px rgb(15 118 110 / 0.95);
+  background: linear-gradient(180deg, #4a2a18 0%, #2f1a10 100%);
+  color: #fff3e6;
+  box-shadow: 0 12px 24px -14px rgb(40 20 8 / 0.9);
 }
 
 .btn-primary:hover:not(:disabled) {
   transform: translateY(-1px);
-  background: linear-gradient(180deg, #2dd4bf 0%, var(--accent) 100%);
+  background: linear-gradient(180deg, #5b3420 0%, #3b2214 100%);
 }
 
 .btn-primary:disabled {
@@ -219,19 +224,19 @@ body::before {
 }
 
 .ticket-row {
-  border: 1px solid rgb(255 255 255 / 0.75);
+  border: 1px solid rgb(255 255 255 / 0.4);
   background: var(--surface);
   backdrop-filter: blur(12px);
   border-radius: 1.1rem;
   padding: 1.25rem 1.35rem;
-  box-shadow: 0 14px 36px -28px rgb(12 31 44 / 0.45);
+  box-shadow: 0 14px 36px -28px rgb(90 40 10 / 0.5);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   animation: rise-in 0.45s ease both;
 }
 
 .ticket-row:hover {
   transform: translateY(-2px);
-  box-shadow: 0 20px 40px -24px rgb(12 31 44 / 0.5);
+  box-shadow: 0 20px 40px -24px rgb(90 40 10 / 0.55);
 }
 
 .meta-chip {
@@ -240,7 +245,7 @@ body::before {
   border-radius: 0.5rem;
   padding: 0.28rem 0.65rem;
   font-size: 0.72rem;
-  font-weight: 650;
+  font-weight: 600;
   letter-spacing: 0.02em;
 }
 
@@ -258,5 +263,136 @@ body::before {
   }
   to {
     transform: translateY(-18px);
+  }
+}
+
+/* Splash — hands meet over 2s, then app begins */
+.splash-root {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 48%, #ffb56f 0%, transparent 42%),
+    radial-gradient(circle at 50% 48%, transparent 30%, rgb(90 40 10 / 0.08) 31%, transparent 32%),
+    radial-gradient(circle at 50% 48%, transparent 48%, rgb(90 40 10 / 0.07) 49%, transparent 50%),
+    radial-gradient(circle at 50% 48%, transparent 66%, rgb(90 40 10 / 0.06) 67%, transparent 68%),
+    linear-gradient(160deg, #ff9f4d 0%, #f07a28 50%, #e45f1c 100%);
+  transition: opacity 0.55s ease, filter 0.55s ease;
+}
+
+.splash-exit {
+  opacity: 0;
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+.splash-grid {
+  position: absolute;
+  inset: -10%;
+  background:
+    repeating-radial-gradient(
+      circle at 50% 48%,
+      transparent 0,
+      transparent 38px,
+      rgb(90 40 10 / 0.07) 39px,
+      transparent 40px
+    );
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.splash-hand {
+  position: absolute;
+  width: min(46vw, 520px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.splash-hand-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+}
+
+.splash-hand-robot {
+  top: -6%;
+  left: -8%;
+  transform: translate(-18%, -18%);
+  animation: hand-in-robot 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.splash-hand-human {
+  right: -8%;
+  bottom: -8%;
+  transform: translate(18%, 18%);
+  animation: hand-in-human 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes hand-in-robot {
+  to {
+    transform: translate(6%, 10%);
+  }
+}
+
+@keyframes hand-in-human {
+  to {
+    transform: translate(-6%, -10%);
+  }
+}
+
+.splash-center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  animation: splash-title-in 0.7s ease 1.15s forwards;
+}
+
+.splash-brand {
+  margin: 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(2.6rem, 7vw, 4rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: #2f1a10;
+  line-height: 1;
+}
+
+.splash-line {
+  margin: 0.85rem 0 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(1.15rem, 3vw, 1.65rem);
+  color: #5a3018;
+}
+
+@keyframes splash-title-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 720px) {
+  .splash-hand {
+    width: min(68vw, 360px);
+  }
+
+  .splash-hand-robot {
+    top: -2%;
+    left: -16%;
+  }
+
+  .splash-hand-human {
+    right: -16%;
+    bottom: -2%;
   }
 }

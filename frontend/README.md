@@ -1,6 +1,6 @@
-# Frontend — AI Support Ticket Triage
+# Frontend
 
-Next.js app for ticket submission and the admin dashboard.
+Next.js client for ticket submission and the admin dashboard.
 
 ## Run
 
@@ -10,9 +10,11 @@ npm install
 npm run dev
 ```
 
-Opens at [http://localhost:3000](http://localhost:3000). Requires the backend API on port 4000.
+Set `NEXT_PUBLIC_API_URL` (default `http://localhost:4000`). Backend must be running.
 
-## Pages
+| Path | Purpose |
+|------|---------|
+| `/` | Public ticket form + confirmation |
+| `/admin` | Login + filtered ticket list |
 
-- `/` — public ticket form + AI triage confirmation
-- `/admin` — admin dashboard (Step 7)
+Admin: `admin@skygnosis.demo` / `Admin123!`

@@ -54,10 +54,6 @@ function normalizeResult(raw) {
   return { priority, category, suggestedReply };
 }
 
-/**
- * Calls Gemini to triage a ticket.
- * Never throws for caller convenience — returns { ok, ...fields, error? }.
- */
 async function triageTicket({ name, email, message }) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey || apiKey === "your-gemini-api-key") {
@@ -119,7 +115,7 @@ async function triageTicket({ name, email, message }) {
         ? `Gemini timed out after ${timeoutMs}ms`
         : err?.message || "Gemini triage failed";
 
-    console.error("AI triage failed:", messageText);
+    console.error("Triage failed:", messageText);
 
     return {
       ok: false,

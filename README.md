@@ -1,37 +1,25 @@
 # AI Support Ticket Triage
 
-Skygnosis full-stack take-home: users submit support tickets, Gemini triages them (priority, category, suggested reply), and admins review them on a protected dashboard.
-
-## Structure
+Users submit support tickets; Gemini assigns priority, category, and a suggested reply. Admins review results on a JWT-protected dashboard.
 
 ```
-frontend/   Next.js (React) — user form + admin dashboard
-backend/    Express REST API — auth, tickets, Gemini triage, PostgreSQL
+frontend/   Next.js + TypeScript + Tailwind
+backend/    Express REST API, PostgreSQL (Neon), Gemini
 ```
 
-## Stack
-
-| Layer | Choice |
-|-------|--------|
-| Frontend | Next.js + TypeScript + Tailwind |
-| Backend | Node.js + Express |
-| Database | PostgreSQL |
-| AI | Google Gemini |
-| Auth | JWT (admin login) |
-
-## Quick start
-
-Detailed run instructions will be finalized in a later step. For now:
+## Setup
 
 ### Backend
 
 ```bash
 cd backend
-cp .env.example .env   # fill in Neon DATABASE_URL and GEMINI_API_KEY
+cp .env.example .env   # set DATABASE_URL and GEMINI_API_KEY
 npm install
 npm run db:migrate
 npm run dev
 ```
+
+`http://localhost:4000`
 
 ### Frontend
 
@@ -42,8 +30,39 @@ npm install
 npm run dev
 ```
 
-API: `http://localhost:4000` · App: `http://localhost:3000`
+`http://localhost:3000` — submit at `/`, admin at `/admin`
 
-## Assignment notes
+### Local admin (seeded)
 
-Trade-offs, assumptions, and “what I’d improve with more time” will be documented here before submission.
+| Email | Password |
+|-------|----------|
+| `admin@skygnosis.demo` | `Admin123!` |
+
+These are **demo seed credentials** for local review only (also listed in `.env.example`). They are not production secrets. Change them before any real deploy. Never commit a real `.env`.
+
+## Stack choices
+
+- **Next.js** — typed UI, fast iteration on form + dashboard
+- **Express** — explicit REST surface and status codes
+- **Neon Postgres** — hosted DB without local install
+- **Gemini** — free-tier triage with JSON output
+- **JWT + bcrypt** — minimal admin gate
+
+## Trade-off
+
+Shipped the full submit → triage → admin filter path without automated tests or hosting. Prefer a reliable local demo over unfinished extras.
+
+## Later
+
+Auth cookies instead of localStorage, tests, pagination/search, AI retry queue, and a deployed environment.
+
+## API
+
+| Method | Path | Auth |
+|--------|------|------|
+| `POST` | `/api/auth/login` | — |
+| `POST` | `/api/tickets` | public |
+| `GET` | `/api/tickets` | Bearer |
+| `GET` | `/api/tickets/:id` | Bearer |
+
+If Gemini fails or times out, the ticket is still stored with defaults (`Medium` / `Other`) and `aiStatus: failed`.
